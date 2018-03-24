@@ -9,7 +9,6 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
-const RedisStore = require('connect-redis')(session);
 
 mongoose.connect("mongodb://localhost/cash-messenger");
 const db = mongoose.connection;
@@ -29,27 +28,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
-
 // Express Session
-app.use(session( {
-  store: new RedisStore(
-    {
-      host: '127.0.0.1',       //where redis store is
-      port: 6379,              //default redis port
-      prefix: 'sess',          //prefix for sessions name is store
-    }
-  ),
-  secret: 'cookiesecret',        //cookie secret
-  key: 'express.sid',
-  resave: true,
-  saveUninitialized: true
+app.use(session({
+    secret: "secret",
+    saveUninitialized: true,
+    resave: true
 }));
-
-// app.use(session({
-//     secret: "secret",
-//     saveUninitialized: true,
-//     resave: true
-// }));
 
 // Passport init
 app.use(passport.initialize());
@@ -72,8 +56,6 @@ app.use(expressValidator({
     };
   }
 }));
-
-
 
 app.use("/", index);       // handle dashboard and mypolls page
 app.use("/register", register);
