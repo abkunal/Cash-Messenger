@@ -19,6 +19,7 @@ const register = require("./routes/register");
 const login = require("./routes/login");
 const inbox = require("./routes/inbox");
 const sendMessage = require("./routes/sendMessage");
+const blockUser = require("./routes/blockUser");
 
 // Init App
 let app = express();
@@ -79,6 +80,7 @@ app.use("/register", register);
 app.use("/login", login);
 app.use("/inbox", inbox);
 app.use("/sendmessage", sendMessage);
+app.use("/block", blockUser);
 
 // handle page not found
 app.use(function(req, res) {

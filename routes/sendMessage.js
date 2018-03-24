@@ -41,22 +41,34 @@ router.post("/", (req, res) => {
               error: "No receiver with the given username exist."
             });
           } else {
-            // add message to the database
-            let newMessage = new Message({
-              subject: subject,
-              content: content,
-              from: req.user.username,
-              to: receiver,
-              time: new Date()
-            });
-
-            Message.addMessage(newMessage, (err, msg) => {
-              if (err) throw err;
-
+            // if the currently logged in user is blocked by receiver,
+            // show error
+            if (user.blockedUsers.indexOf(req.user.username) !== -1) {
               res.json({
-                success: "Message sent"
+                error: "Some error occurred while sending message"
               });
-            });
+            } else if (req.user.blockedUsers.indexOf(receiver) !== -1) {
+              res.json({
+                error: "You have blocked this user, unblock to send messages"
+              });
+            } else {
+              // add message to the database
+              let newMessage = new Message({
+                subject: subject,
+                content: content,
+                from: req.user.username,
+                to: receiver,
+                time: new Date()
+              });
+
+              Message.addMessage(newMessage, (err, msg) => {
+                if (err) throw err;
+
+                res.json({
+                  success: "Message sent"
+                });
+              });
+            }
           }
         });
       }

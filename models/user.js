@@ -12,7 +12,8 @@ let UserSchema = mongoose.Schema({
   },
   password: String,
   firstName: String,
-  lastName: String
+  lastName: String,
+  blockedUsers: [String]
 });
 
 let User = module.exports = mongoose.model("User", UserSchema);
@@ -50,4 +51,13 @@ module.exports.comparePassword = (candidatePassword, hash, callback) => {
     if (err) throw err;
     callback(null, isMatch);
   });
+}
+
+/*  Block the user with the username toBlock for the given user
+
+    username: String
+    toBlock: String
+ */
+module.exports.blockUser = (username, toBlock, callback) => {
+  User.update({username: username}, {$push: {blockedUsers: toBlock}}, callback);
 }
