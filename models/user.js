@@ -31,3 +31,23 @@ module.exports.registerUser = (newUser, callback) => {
     });
   });
 }
+
+/*  Get user's information with the given username
+
+    username: String
+ */
+module.exports.getUser = (username, callback) => {
+  User.findOne({username: username}, callback);
+}
+
+/*  Compare password hashes for authentication
+
+    candidatePassword: String
+    hash: String
+ */
+module.exports.comparePassword = (candidatePassword, hash, callback) => {
+  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+    if (err) throw err;
+    callback(null, isMatch);
+  });
+}
