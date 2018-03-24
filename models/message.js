@@ -22,3 +22,17 @@ let Message = module.exports = mongoose.model("Message", MessageSchema);
 module.exports.addMessage = (newMessage, callback) => {
   newMessage.save(callback);
 }
+
+/*  Get all the messages sent to the user with the given username
+
+    username: String
+ */
+module.exports.getAllMessagesSentToUser = (username, callback) => {
+  Message.find({to: username}, {
+    subject: 1,
+    content: 1,
+    from: 1,
+    to: 1,
+    time: 1
+  }).exec(callback);
+}
