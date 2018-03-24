@@ -14,7 +14,9 @@ const RedisStore = require('connect-redis')(session);
 mongoose.connect("mongodb://localhost/cash-messenger");
 const db = mongoose.connection;
 
-const routes = require("./routes/index");
+const index = require("./routes/index");
+const register = require("./routes/register");
+const login = require("./routes/login");
 
 // Init App
 let app = express();
@@ -70,7 +72,9 @@ app.use(expressValidator({
 
 
 
-app.use("/", routes);       // handle dashboard and mypolls page
+app.use("/", index);       // handle dashboard and mypolls page
+app.use("/register", register);
+app.use("/login", login);
 
 // handle page not found
 app.use(function(req, res) {

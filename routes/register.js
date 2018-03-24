@@ -2,7 +2,7 @@ const router = require("express").Router();
 const User = require("../models/user");
 
 router.post("/", (req, res) => {
-  // if user is logged in
+  // if user is not logged in
   if (!req.user) {
     let username = req.body.username;
     let password = req.body.password;
@@ -53,6 +53,10 @@ router.post("/", (req, res) => {
           }
         });
       }
+    });
+  } else {
+    res.json({
+      msg: "You are already logged in"
     });
   }
 });
