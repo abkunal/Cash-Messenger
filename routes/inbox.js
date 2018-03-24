@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
     Message.getAllMessagesSentToUser(req.user.username, (err, messages) => {
       if (err) throw err;
 
-      res.send(JSON.stringify(messages));
+      res.send(messages);
     });
   }
 });

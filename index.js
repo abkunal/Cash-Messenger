@@ -18,6 +18,7 @@ const index = require("./routes/index");
 const register = require("./routes/register");
 const login = require("./routes/login");
 const inbox = require("./routes/inbox");
+const sendMessage = require("./routes/sendMessage");
 
 // Init App
 let app = express();
@@ -77,6 +78,7 @@ app.use("/", index);       // handle dashboard and mypolls page
 app.use("/register", register);
 app.use("/login", login);
 app.use("/inbox", inbox);
+app.use("/sendmessage", sendMessage);
 
 // handle page not found
 app.use(function(req, res) {

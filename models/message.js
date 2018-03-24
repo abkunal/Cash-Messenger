@@ -10,7 +10,7 @@ let MessageSchema = mongoose.Schema({
   content: String,
   from: String,
   to: String,
-  time: String
+  time: Date
 });
 
 let Message = module.exports = mongoose.model("Message", MessageSchema);
@@ -33,6 +33,7 @@ module.exports.getAllMessagesSentToUser = (username, callback) => {
     content: 1,
     from: 1,
     to: 1,
-    time: 1
+    time: 1,
+    _id: 0
   }).exec(callback);
 }
