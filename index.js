@@ -17,6 +17,7 @@ const db = mongoose.connection;
 const index = require("./routes/index");
 const register = require("./routes/register");
 const login = require("./routes/login");
+const inbox = require("./routes/inbox");
 
 // Init App
 let app = express();
@@ -75,6 +76,7 @@ app.use(expressValidator({
 app.use("/", index);       // handle dashboard and mypolls page
 app.use("/register", register);
 app.use("/login", login);
+app.use("/inbox", inbox);
 
 // handle page not found
 app.use(function(req, res) {
