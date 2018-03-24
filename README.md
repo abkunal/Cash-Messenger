@@ -11,3 +11,5 @@ It allows a user to:
 6. Block other users from sending them messages
 
 The Postman documentation can be found [here](https://documenter.getpostman.com/view/3270664/cash-messenger/RVtvqDDa)
+
+This App is live on heroku at https://cash-messenger.herokuapp.com
